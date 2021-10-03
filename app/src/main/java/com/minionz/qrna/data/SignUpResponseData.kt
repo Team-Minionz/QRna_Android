@@ -1,6 +1,6 @@
 package com.minionz.qrna.data
 
-data class SIgnUpResponseData(
+data class SignUpResponseData(
     val email : String?,
     val statusCode : Int
 )
