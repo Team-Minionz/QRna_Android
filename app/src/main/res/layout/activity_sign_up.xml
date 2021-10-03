@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:text="@={viewModel.signUpName}"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -60,6 +61,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:text="@={viewModel.signUpEmail}"
                     android:inputType="textEmailAddress"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -81,6 +83,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:text="@={viewModel.signUpNickName}"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -101,6 +104,9 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    phoneEdit="@{viewModel.signUpPhone}"
+                    android:maxLength="13"
+                    android:text="@={viewModel.signUpPhone}"
                     android:inputType="phone"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -122,6 +128,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:text="@={viewModel.signUpPassword}"
                     android:inputType="textPassword"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -136,12 +143,18 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    signUpName="@{viewModel.signUpName}"
+                    signUpEmail="@{viewModel.signUpEmail}"
+                    signUpNickName="@{viewModel.signUpNickName}"
+                    signUpPhone="@{viewModel.signUpPhone}"
+                    signUpPassword="@{viewModel.signUpPassword}"
                     android:layout_weight="1"
                     android:text="@string/sign_up_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <Button
+                    signUpCancel="@{viewModel.userId}"
                     android:layout_weight="1"
                     android:text="@string/sign_up_cancel"
                     android:layout_width="match_parent"
