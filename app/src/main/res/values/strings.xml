@@ -2,4 +2,11 @@
     <string name="app_name">QRna</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
+    <string name="sign_up_name">이름</string>
+    <string name="sign_up_email">이메일</string>
+    <string name="sign_up_nickname">닉네임</string>
+    <string name="sign_up_phone">휴대전화</string>
+    <string name="sign_up_password">비밀번호</string>
+    <string name="sign_up_confirm">확인</string>
+    <string name="sign_up_cancel">취소</string>
 </resources>
