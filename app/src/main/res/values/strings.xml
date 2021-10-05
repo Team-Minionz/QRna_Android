@@ -9,4 +9,8 @@
     <string name="sign_up_password">비밀번호</string>
     <string name="sign_up_confirm">확인</string>
     <string name="sign_up_cancel">취소</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
