@@ -8,10 +8,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
+import com.minionz.qrna.data.LoginRequestData
+import com.minionz.qrna.data.LoginResponseData
 import com.minionz.qrna.data.SignUpResponseData
 import com.minionz.qrna.data.SignUpRequestData
 import com.minionz.qrna.network.RetrofitBuilder
 import com.minionz.qrna.signUp.SignUpActivity
+import com.minionz.qrna.view.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -74,5 +77,30 @@ object SignBindingAdapter {
     @JvmStatic
     fun signUpCancel(button: Button, userId : Int) {
         button.setOnClickListener { (button.context as Activity).finish() }
+    }
+
+    @BindingAdapter("loginId","loginPw")
+    @JvmStatic
+    fun login(button: Button, loginId : String?, loginPassword : String?) {
+        button.setOnClickListener {
+            val loginRequestBody = LoginRequestData(loginId.toString(),loginPassword.toString())
+
+            RetrofitBuilder.networkService.login(loginRequestBody).enqueue(object : Callback<LoginResponseData>{
+                override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
+                    Toast.makeText(button.context,"로그인에 실패했습니다",Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onResponse(
+                    call: Call<LoginResponseData>,
+                    response: Response<LoginResponseData>
+                ) {
+                    val res = response.body()!!
+                    if(res.statusCode == 200) {
+                        val intent = Intent(button.context,MainActivity::class.java)
+                        button.context.startActivity(intent)
+                    }
+                }
+            })
+        }
     }
 }
