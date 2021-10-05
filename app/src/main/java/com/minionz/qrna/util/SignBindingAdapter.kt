@@ -16,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object SignUpBindingAdapter {
+object SignBindingAdapter {
 
     @BindingAdapter("signUp")
     @JvmStatic
@@ -31,7 +31,6 @@ object SignUpBindingAdapter {
     @JvmStatic
     fun phoneEdit(editText: EditText, phone : String?) {
         editText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-        Log.e("??",editText.text.toString())
     }
 
     @BindingAdapter(value = ["signUpName","signUpEmail","signUpNickName","signUpPhone","signUpPassword"],
