@@ -1,10 +1,8 @@
 package com.minionz.qrna.network
 
-import com.minionz.qrna.data.LoginRequestData
-import com.minionz.qrna.data.LoginResponseData
-import com.minionz.qrna.data.SignUpResponseData
-import com.minionz.qrna.data.SignUpRequestData
+import com.minionz.qrna.data.*
 import retrofit2.Call
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface NetworkService {
@@ -18,4 +16,7 @@ interface NetworkService {
     fun login(
         loginRequestBody : LoginRequestData
     ) : Call<LoginResponseData>
+
+    @GET("/api/v1/users/logout/email")
+    fun logout() : Call<LogoutResponseData>
 }
