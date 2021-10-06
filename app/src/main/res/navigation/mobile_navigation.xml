@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.minionz.qrna.view.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_my_info"
+        android:name="com.minionz.qrna.view.ui.myinfo.MyInfoFragment"
+        android:label="@string/title_my_info"
+        tools:layout="@layout/fragment_my_info" />
 </navigation>
