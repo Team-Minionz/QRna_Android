@@ -8,10 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import com.minionz.qrna.data.LoginRequestData
-import com.minionz.qrna.data.LoginResponseData
-import com.minionz.qrna.data.SignUpResponseData
-import com.minionz.qrna.data.SignUpRequestData
+import com.minionz.qrna.data.*
 import com.minionz.qrna.network.RetrofitBuilder
 import com.minionz.qrna.signUp.SignUpActivity
 import com.minionz.qrna.view.MainActivity
@@ -99,6 +96,30 @@ object SignBindingAdapter {
                         val intent = Intent(button.context,MainActivity::class.java)
                         button.context.startActivity(intent)
                     }
+                }
+            })
+        }
+    }
+
+    @BindingAdapter("logout")
+    @JvmStatic
+    fun logout(button: Button, userId: Int?) {
+        button.setOnClickListener {
+            val errorMessage = Toast.makeText(button.context,"로그아웃에 실패했습니다",Toast.LENGTH_SHORT)
+
+            RetrofitBuilder.networkService.logout().enqueue(object : Callback<LogoutResponseData> {
+                override fun onFailure(call: Call<LogoutResponseData>, t: Throwable) {
+                    errorMessage.show()
+                }
+
+                override fun onResponse(
+                    call: Call<LogoutResponseData>,
+                    response: Response<LogoutResponseData>
+                ) {
+                    val res = response.body()!!
+
+                    if(res.statusCode == 200) (button.context as Activity).finish()
+                    else errorMessage.show()
                 }
             })
         }
