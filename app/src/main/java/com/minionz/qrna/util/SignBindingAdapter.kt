@@ -124,4 +124,28 @@ object SignBindingAdapter {
             })
         }
     }
+
+    @BindingAdapter("withdraw")
+    @JvmStatic
+    fun withDraw(button: Button, email : Int) {
+        button.setOnClickListener {
+            val errorMessage = Toast.makeText(button.context,"탈퇴에 실패했습니다",Toast.LENGTH_SHORT)
+            RetrofitBuilder.networkService.withdraw(email.toString()).enqueue(object : Callback<WithdrawResponseData> {
+                override fun onFailure(call: Call<WithdrawResponseData>, t: Throwable) {
+                    errorMessage.show()
+                }
+
+                override fun onResponse(
+                    call: Call<WithdrawResponseData>,
+                    response: Response<WithdrawResponseData>
+                ) {
+                    val res = response.body()!!
+                    if(res.statusCode == 200) {
+                        Toast.makeText(button.context,"성공적으로 탈퇴했습니다", Toast.LENGTH_SHORT).show()
+                        (button.context as Activity).finish()
+                    } else errorMessage.show()
+                }
+            })
+        }
+    }
 }
