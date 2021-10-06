@@ -85,6 +85,7 @@
                     android:layout_height="wrap_content"/>
 
                 <Button
+                    withdraw="@{viewModel.userId}"
                     android:text="회원 탈퇴"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -93,7 +94,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
