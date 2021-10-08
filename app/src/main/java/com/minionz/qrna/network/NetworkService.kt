@@ -25,4 +25,9 @@ interface NetworkService {
     fun withdraw(
         email : String
     ) : Call<WithdrawResponseData>
+
+    @POST("/api/v1/visits")
+    fun certification(
+        certificationRequestData : QrCertificationRequestData
+    ) : Call<QrCertificationResponseData>
 }
