@@ -100,10 +100,10 @@ object SignBindingAdapter {
     fun login(button: Button, loginId : String?, loginPassword : String?) {
         button.setOnClickListener {
             val loginRequestBody = LoginRequestData(loginId.toString(),loginPassword.toString())
-
+            val errorMessage =     Toast.makeText(button.context,"로그인에 실패했습니다",Toast.LENGTH_SHORT)
             RetrofitBuilder.networkService.login(loginRequestBody).enqueue(object : Callback<LoginResponseData>{
                 override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
-                    Toast.makeText(button.context,"로그인에 실패했습니다",Toast.LENGTH_SHORT).show()
+                    errorMessage.show()
                 }
 
                 override fun onResponse(
@@ -111,10 +111,10 @@ object SignBindingAdapter {
                     response: Response<LoginResponseData>
                 ) {
                     val res = response.body()!!
-                    if(res.statusCode == 200) {
+                    if(res.message == "로그인 성공") {
                         val intent = Intent(button.context,MainActivity::class.java)
                         button.context.startActivity(intent)
-                    }
+                    } else errorMessage.show()
                 }
             })
         }
@@ -137,7 +137,7 @@ object SignBindingAdapter {
                 ) {
                     val res = response.body()!!
 
-                    if(res.statusCode == 200) (button.context as Activity).finish()
+                    if(res.message == "로그아웃") (button.context as Activity).finish()
                     else errorMessage.show()
                 }
             })
