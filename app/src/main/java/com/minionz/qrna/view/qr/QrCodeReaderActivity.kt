@@ -44,13 +44,16 @@ class QrCodeReaderActivity : AppCompatActivity() {
                 RetrofitBuilder.networkService.certification(requestBody).enqueue(object : Callback<QrCertificationResponseData> {
                     override fun onFailure(call: Call<QrCertificationResponseData>, t: Throwable) {
                         errorMessage.show()
+                        finish()
                     }
 
                     override fun onResponse(
                         call: Call<QrCertificationResponseData>,
                         response: Response<QrCertificationResponseData>
                     ) {
-                        if(response.isSuccessful) {
+                        val res = response.body()
+
+                        if(res?.message == "방문 기록 성공") {
                             Toast.makeText(
                                 this@QrCodeReaderActivity,
                                 "인증이 완료되었습니다",
