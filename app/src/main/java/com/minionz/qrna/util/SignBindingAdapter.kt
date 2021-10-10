@@ -33,11 +33,13 @@ object SignBindingAdapter {
         editText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     }
 
-    @BindingAdapter(value = ["signUpName","signUpEmail","signUpNickName","signUpPhone","signUpPassword"],
+    @BindingAdapter(value = ["signUpName","signUpEmail","signUpNickName","signUpPhone","signUpPassword",
+                            "signUpZipCode","signUpStreet","signUpCity"],
     requireAll = true)
     @JvmStatic
     fun signUp(button: Button, signUpName : String?, signUpEmail : String?, signUpNickName : String?,
-               signUpPhone : String?, signUpPassword : String?) {
+               signUpPhone : String?, signUpPassword : String?, signUpZipCode: String?, signUpStreet : String?,
+    signUpCity : String?) {
         button.setOnClickListener {
 
             val errorMessage = Toast.makeText(button.context,"회원가입에 실패했습니다",Toast.LENGTH_SHORT)
@@ -48,10 +50,15 @@ object SignBindingAdapter {
                 signUpNickName.isNullOrBlank() -> { Toast.makeText(button.context,"닉네임을 입력하세요",Toast.LENGTH_SHORT).show() }
                 signUpPhone.isNullOrBlank() -> { Toast.makeText(button.context,"전화번호를 입력하세요",Toast.LENGTH_SHORT).show() }
                 signUpPassword.isNullOrBlank() -> { Toast.makeText(button.context,"비밀번호를 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpZipCode.isNullOrBlank() -> { Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpStreet.isNullOrBlank() -> { Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpCity.isNullOrBlank() -> { Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show() }
 
                 else -> {
+                    val address = AddressInfo(signUpZipCode.toString(),signUpStreet.toString(),signUpCity.toString())
                     val signUpRequestBody = SignUpRequestData(signUpName.toString(),signUpEmail.toString(),
-                        signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString())
+                        signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString(),address)
+
 
                     RetrofitBuilder.networkService.signUp(signUpRequestBody).enqueue(object : Callback<SignUpResponseData> {
                         override fun onFailure(call: Call<SignUpResponseData>, t: Throwable) {
