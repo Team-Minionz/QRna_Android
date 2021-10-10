@@ -159,7 +159,7 @@ object SignBindingAdapter {
                     response: Response<WithdrawResponseData>
                 ) {
                     val res = response.body()!!
-                    if(res.statusCode == 200) {
+                    if(res.message == "회원탈퇴 성공") {
                         Toast.makeText(button.context,"성공적으로 탈퇴했습니다", Toast.LENGTH_SHORT).show()
                         (button.context as Activity).finish()
                     } else errorMessage.show()
