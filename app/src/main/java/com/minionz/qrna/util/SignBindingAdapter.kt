@@ -65,8 +65,8 @@ object SignBindingAdapter {
                             val res = response.body()
                             Log.e("res",res.toString())
 
-                            when(res?.statusCode) {
-                                0 -> {
+                            when(res?.message) {
+                                "회원가입 성공" -> {
                                     Toast.makeText(button.context,"회원가입에 성공했습니다",Toast.LENGTH_SHORT).show()
                                     (button.context as Activity).finish()
                                 }
