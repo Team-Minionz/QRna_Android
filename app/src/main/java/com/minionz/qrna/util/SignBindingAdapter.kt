@@ -33,40 +33,59 @@ object SignBindingAdapter {
         editText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     }
 
-    @BindingAdapter(value = ["signUpName","signUpEmail","signUpNickName","signUpPhone","signUpPassword"],
+    @BindingAdapter(value = ["signUpName","signUpEmail","signUpNickName","signUpPhone","signUpPassword",
+                            "signUpZipCode","signUpStreet","signUpCity"],
     requireAll = true)
     @JvmStatic
     fun signUp(button: Button, signUpName : String?, signUpEmail : String?, signUpNickName : String?,
-               signUpPhone : String?, signUpPassword : String?) {
+               signUpPhone : String?, signUpPassword : String?, signUpZipCode: String?, signUpStreet : String?,
+    signUpCity : String?) {
         button.setOnClickListener {
 
-            Log.e("???",signUpPhone.toString())
-
             val errorMessage = Toast.makeText(button.context,"회원가입에 실패했습니다",Toast.LENGTH_SHORT)
-            val signUpRequestBody = SignUpRequestData(signUpName.toString(),signUpEmail.toString(),
-            signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString())
 
-            RetrofitBuilder.networkService.signUp(signUpRequestBody).enqueue(object : Callback<SignUpResponseData> {
-                override fun onFailure(call: Call<SignUpResponseData>, t: Throwable) {
-                    errorMessage.show()
-                }
+            when {
+                signUpName.isNullOrBlank() -> { Toast.makeText(button.context,"이름을 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpEmail.isNullOrBlank() -> { Toast.makeText(button.context,"이메일을 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpNickName.isNullOrBlank() -> { Toast.makeText(button.context,"닉네임을 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpPhone.isNullOrBlank() -> { Toast.makeText(button.context,"전화번호를 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpPassword.isNullOrBlank() -> { Toast.makeText(button.context,"비밀번호를 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpZipCode.isNullOrBlank() -> { Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpStreet.isNullOrBlank() -> { Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show() }
+                signUpCity.isNullOrBlank() -> { Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show() }
 
-                override fun onResponse(
-                    call: Call<SignUpResponseData>,
-                    response: Response<SignUpResponseData>
-                ) {
-                    val res = response.body()
+                else -> {
+                    val address = AddressInfo(signUpZipCode.toString(),signUpStreet.toString(),signUpCity.toString())
+                    val signUpRequestBody = SignUpRequestData(signUpName.toString(),signUpEmail.toString(),
+                        signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString(),address)
 
-                    when(res?.statusCode) {
-                        0 -> {
-                            Toast.makeText(button.context,"회원가입에 성공했습니다",Toast.LENGTH_SHORT).show()
-                            (button.context as Activity).finish()
+
+                    RetrofitBuilder.networkService.signUp(signUpRequestBody).enqueue(object : Callback<SignUpResponseData> {
+                        override fun onFailure(call: Call<SignUpResponseData>, t: Throwable) {
+                            errorMessage.show()
                         }
-                        else -> errorMessage.show()
-                    }
 
+                        override fun onResponse(
+                            call: Call<SignUpResponseData>,
+                            response: Response<SignUpResponseData>
+                        ) {
+                            val res = response.body()
+                            Log.e("res",res.toString())
+
+                            when(res?.message) {
+                                "회원가입 성공" -> {
+                                    Toast.makeText(button.context,"회원가입에 성공했습니다",Toast.LENGTH_SHORT).show()
+                                    (button.context as Activity).finish()
+                                }
+                                else -> errorMessage.show()
+                            }
+
+                        }
+                    })
                 }
-            })
+
+            }
+
         }
     }
 
@@ -140,7 +159,7 @@ object SignBindingAdapter {
                     response: Response<WithdrawResponseData>
                 ) {
                     val res = response.body()!!
-                    if(res.statusCode == 200) {
+                    if(res.message == "회원탈퇴 성공") {
                         Toast.makeText(button.context,"성공적으로 탈퇴했습니다", Toast.LENGTH_SHORT).show()
                         (button.context as Activity).finish()
                     } else errorMessage.show()

@@ -5,5 +5,11 @@ data class SignUpRequestData(
     val email : String,
     val nickName : String,
     val telNumber : String,
-    val password : String
+    val password : String,
+    val address : AddressInfo
+)
+data class AddressInfo(
+    val zipcode : String,
+    val street : String,
+    val city : String
 )

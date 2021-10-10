@@ -10,6 +10,9 @@ class SignUpViewModel : ViewModel() {
     val signUpNickName = MutableLiveData<String>()
     val signUpPhone = MutableLiveData<String>()
     val signUpPassword = MutableLiveData<String>()
+    val signUpZipCode = MutableLiveData<String>()
+    val signUpStreet = MutableLiveData<String>()
+    val signUpCity = MutableLiveData<String>()
 
     val userId = MutableLiveData<Int>().apply { value = 1 }
 
