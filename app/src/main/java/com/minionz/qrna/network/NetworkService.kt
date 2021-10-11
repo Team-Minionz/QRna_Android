@@ -2,32 +2,32 @@ package com.minionz.qrna.network
 
 import com.minionz.qrna.data.*
 import retrofit2.Call
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface NetworkService {
 
     @POST("/api/v1/users/join")
     fun signUp(
-        signUpRequestBody : SignUpRequestData
-    ) : Call<SignUpResponseData>
+        @Body signUpRequestBody : SignUpRequestData
+    ) : Call<DefaultResponseData>
 
     @POST("/api/v1/users/login")
     fun login(
-        loginRequestBody : LoginRequestData
-    ) : Call<LoginResponseData>
+        @Body loginRequestBody : LoginRequestData
+    ) : Call<DefaultResponseData>
 
-    @GET("/api/v1/users/logout/email")
-    fun logout() : Call<LogoutResponseData>
+    @GET("/api/v1/users/logout/{email}")
+    fun logout(
+        @Path ("email") email : String
+    ) : Call<DefaultResponseData>
 
-    @DELETE("/api/v1/users/withdraw/email")
+    @DELETE("/api/v1/users/withdraw/{email}")
     fun withdraw(
-        email : String
-    ) : Call<WithdrawResponseData>
+        @Path ("email") email : String
+    ) : Call<DefaultResponseData>
 
     @POST("/api/v1/visits")
     fun certification(
-        certificationRequestData : QrCertificationRequestData
-    ) : Call<QrCertificationResponseData>
+        @Body certificationRequestData : QrCertificationRequestData
+    ) : Call<DefaultResponseData>
 }

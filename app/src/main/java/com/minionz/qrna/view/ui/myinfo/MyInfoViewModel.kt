@@ -5,6 +5,6 @@ import androidx.lifecycle.ViewModel
 
 class MyInfoViewModel : ViewModel() {
 
-    val userId = MutableLiveData<Int>().apply { this.value = 0 }
+    val userEmail = MutableLiveData<String>().apply { this.value = "" }
 
 }

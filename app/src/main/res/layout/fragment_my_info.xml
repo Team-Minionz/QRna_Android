@@ -78,14 +78,14 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    logout="@{viewModel.userId}"
+                    logout="@{viewModel.userEmail}"
                     android:text="로그 아웃"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <Button
-                    withdraw="@{viewModel.userId}"
+                    withdraw="@{viewModel.userEmail}"
                     android:text="회원 탈퇴"
                     android:layout_weight="1"
                     android:layout_width="match_parent"

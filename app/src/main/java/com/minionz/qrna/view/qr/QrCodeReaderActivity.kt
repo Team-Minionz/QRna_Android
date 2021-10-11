@@ -7,8 +7,8 @@ import android.util.Log
 import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
 import com.minionz.qrna.R
+import com.minionz.qrna.data.DefaultResponseData
 import com.minionz.qrna.data.QrCertificationRequestData
-import com.minionz.qrna.data.QrCertificationResponseData
 import com.minionz.qrna.network.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,18 +39,22 @@ class QrCodeReaderActivity : AppCompatActivity() {
 
         if(result != null) {
             if(result.contents != null) {
-                val requestBody = QrCertificationRequestData("","")
+                val requestBody = QrCertificationRequestData("b@b.com","032-888-1111")
 
-                RetrofitBuilder.networkService.certification(requestBody).enqueue(object : Callback<QrCertificationResponseData> {
-                    override fun onFailure(call: Call<QrCertificationResponseData>, t: Throwable) {
+                RetrofitBuilder.networkService.certification(requestBody).enqueue(object : Callback<DefaultResponseData> {
+                    override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                         errorMessage.show()
                     }
 
                     override fun onResponse(
-                        call: Call<QrCertificationResponseData>,
-                        response: Response<QrCertificationResponseData>
+                        call: Call<DefaultResponseData>,
+                        response: Response<DefaultResponseData>
                     ) {
-                        if(response.isSuccessful) {
+                        val res = response.body()
+                        Log.e("???",response.code().toString())
+                        Log.e("???",response.raw().toString())
+                        Log.e("??",res.toString())
+                        if(res?.message == "방문 기록 성공") {
                             Toast.makeText(
                                 this@QrCodeReaderActivity,
                                 "인증이 완료되었습니다",

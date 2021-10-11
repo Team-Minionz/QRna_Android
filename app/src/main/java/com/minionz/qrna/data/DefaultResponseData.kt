@@ -1,5 +1,5 @@
 package com.minionz.qrna.data
 
-data class WithdrawResponseData(
+data class DefaultResponseData(
     val message : String?
 )
