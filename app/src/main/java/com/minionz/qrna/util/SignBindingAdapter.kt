@@ -69,19 +69,14 @@ object SignBindingAdapter {
                             call: Call<DefaultResponseData>,
                             response: Response<DefaultResponseData>
                         ) {
-                            val res = response.body()
-                            Log.e("???",response.code().toString())
-                            Log.e("???",response.raw().toString())
-                            Log.e("??",res.toString())
-
-                            when(res?.message) {
-                                "회원가입 성공" -> {
+                            when(response.code()) {
+                                201 -> {
                                     Toast.makeText(button.context,"회원가입에 성공했습니다",Toast.LENGTH_SHORT).show()
                                     (button.context as Activity).finish()
                                 }
+                                400 -> Toast.makeText(button.context,"중복된 이메일입니다",Toast.LENGTH_SHORT).show()
                                 else -> errorMessage.show()
                             }
-
                         }
                     })
                 }
@@ -112,18 +107,18 @@ object SignBindingAdapter {
                     call: Call<DefaultResponseData>,
                     response: Response<DefaultResponseData>
                 ) {
-                    val res = response.body()
-                    Log.e("???",response.code().toString())
-                    Log.e("???",response.raw().toString())
-                    Log.e("??",res.toString())
 
-                    when(res?.message) {
-                        "로그인 성공" -> {
-                            val intent = Intent(button.context, MainActivity::class.java)
-                            button.context.startActivity(intent)
+                    when(response.code()) {
+                        200 -> {
+                            if(response.body()?.message == "로그인 성공") {
+                                val intent = Intent(button.context, MainActivity::class.java)
+                                button.context.startActivity(intent)
+                            }
                         }
-                    }
 
+                        400 -> Toast.makeText(button.context,"비밀번호가 일치하지 않습니다",Toast.LENGTH_SHORT).show()
+                        404 -> Toast.makeText(button.context,"존재하지 않는 이메일입니다",Toast.LENGTH_SHORT).show()
+                    }
                 }
             })
         }
@@ -135,7 +130,7 @@ object SignBindingAdapter {
         button.setOnClickListener {
             val errorMessage = Toast.makeText(button.context,"로그아웃에 실패했습니다",Toast.LENGTH_SHORT)
 
-            RetrofitBuilder.networkService.logout(userEmail.toString()).enqueue(object : Callback<DefaultResponseData> {
+            RetrofitBuilder.networkService.logout("a@a.com").enqueue(object : Callback<DefaultResponseData> {
                 override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                     errorMessage.show()
                 }
@@ -144,13 +139,11 @@ object SignBindingAdapter {
                     call: Call<DefaultResponseData>,
                     response: Response<DefaultResponseData>
                 ) {
-                    val res = response.body()
-                    Log.e("???",response.code().toString())
-                    Log.e("???",response.raw().toString())
-                    Log.e("??",res.toString())
 
-                    if(res?.message == "로그아웃 성공") (button.context as Activity).finish()
-                    else errorMessage.show()
+                    when(response.code()) {
+                        204 -> (button.context as Activity).finish()
+                        else -> errorMessage.show()
+                    }
                 }
             })
         }
@@ -161,7 +154,7 @@ object SignBindingAdapter {
     fun withDraw(button: Button, email : String?) {
         button.setOnClickListener {
             val errorMessage = Toast.makeText(button.context,"탈퇴에 실패했습니다",Toast.LENGTH_SHORT)
-            RetrofitBuilder.networkService.withdraw(email.toString()).enqueue(object : Callback<DefaultResponseData> {
+            RetrofitBuilder.networkService.withdraw("a@a.com").enqueue(object : Callback<DefaultResponseData> {
                 override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                     errorMessage.show()
                 }
@@ -170,15 +163,14 @@ object SignBindingAdapter {
                     call: Call<DefaultResponseData>,
                     response: Response<DefaultResponseData>
                 ) {
-                    val res = response.body()
-                    Log.e("???",response.code().toString())
-                    Log.e("???",response.raw().toString())
-                    Log.e("??",res.toString())
 
-                    if(res?.message == "회원탈퇴 성공") {
-                        Toast.makeText(button.context,"성공적으로 탈퇴했습니다", Toast.LENGTH_SHORT).show()
-                        (button.context as Activity).finish()
-                    } else errorMessage.show()
+                    when(response.code()) {
+                        204 -> {
+                            Toast.makeText(button.context,"성공적으로 탈퇴했습니다", Toast.LENGTH_SHORT).show()
+                            (button.context as Activity).finish()
+                        }
+                        else -> errorMessage.show()
+                    }
                 }
             })
         }
