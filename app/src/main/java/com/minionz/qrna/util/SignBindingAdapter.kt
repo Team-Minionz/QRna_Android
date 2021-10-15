@@ -2,10 +2,12 @@ package com.minionz.qrna.util
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Paint
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.minionz.qrna.data.*
@@ -20,10 +22,12 @@ object SignBindingAdapter {
 
     @BindingAdapter("signUp")
     @JvmStatic
-    fun signUpActivity(button: Button, userId : String?) {
-        button.setOnClickListener {
-            val intent = Intent(button.context,SignUpActivity::class.java)
-            button.context.startActivity(intent)
+    fun signUpActivity(textView: TextView, userId : String?) {
+        textView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
+        textView.setOnClickListener {
+            val intent = Intent(textView.context,SignUpActivity::class.java)
+            textView.context.startActivity(intent)
         }
     }
 
