@@ -11,199 +11,208 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFCFF9F1"
         tools:context=".signUp.SignUpActivity">
 
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:background="@drawable/round_top"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:gravity="center"
-                    android:text="@string/sign_up_name"
-                    android:layout_weight="3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
                 <EditText
-                    android:text="@={viewModel.signUpName}"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:gravity="center"
-                    android:text="@string/sign_up_email"
-                    android:layout_weight="3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:background="@drawable/round_corner"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="ID"
                     android:text="@={viewModel.signUpEmail}"
                     android:inputType="textEmailAddress"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:gravity="center"
-                    android:text="@string/sign_up_nickname"
-                    android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:background="@drawable/round_corner"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="Password"
+                    android:text="@={viewModel.signUpPassword}"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:background="@drawable/round_corner"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="Name"
+                    android:text="@={viewModel.signUpName}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:background="@drawable/round_corner"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="NickName"
                     android:text="@={viewModel.signUpNickName}"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:gravity="center"
-                    android:text="@string/sign_up_phone"
-                    android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:background="@drawable/round_corner"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="Phone Number"
                     phoneEdit="@{viewModel.signUpPhone}"
                     android:maxLength="13"
                     android:text="@={viewModel.signUpPhone}"
                     android:inputType="phone"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:padding="10dp"
+                        android:textSize="18sp"
+                        android:background="@drawable/round_corner"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@={viewModel.signUpZipCode}"
+                        android:gravity="end"
+                        android:hint="시"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:padding="10dp"
+                        android:textSize="18sp"
+                        android:background="@drawable/round_corner"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@={viewModel.signUpStreet}"
+                        android:gravity="end"
+                        android:hint="군/구"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:padding="10dp"
+                        android:textSize="18sp"
+                        android:background="@drawable/round_corner"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@={viewModel.signUpCity}"
+                        android:gravity="end"
+                        android:hint="동"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/round_corner"
+                        android:backgroundTint="#E74C3C"
+                        android:textColor="#FEFEFE"
+                        signUpName="@{viewModel.signUpName}"
+                        signUpEmail="@{viewModel.signUpEmail}"
+                        signUpNickName="@{viewModel.signUpNickName}"
+                        signUpPhone="@{viewModel.signUpPhone}"
+                        signUpPassword="@{viewModel.signUpPassword}"
+                        signUpZipCode="@{viewModel.signUpZipCode}"
+                        signUpStreet="@{viewModel.signUpStreet}"
+                        signUpCity="@{viewModel.signUpCity}"
+                        android:layout_weight="1"
+                        android:text="@string/sign_up_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_corner"
+                        android:backgroundTint="#5E5E5E"
+                        android:textColor="#FEFEFE"
+                        signUpCancel="@{viewModel.userId}"
+                        android:layout_weight="1"
+                        android:text="@string/sign_up_cancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:gravity="center"
-                    android:text="@string/sign_up_password"
-                    android:layout_weight="3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
-                    android:text="@={viewModel.signUpPassword}"
-                    android:inputType="textPassword"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:gravity="center"
-                    android:text="@string/sign_up_address"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
-                    android:text="@={viewModel.signUpZipCode}"
-                    android:gravity="end"
-                    android:hint="시"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
-                    android:text="@={viewModel.signUpStreet}"
-                    android:gravity="end"
-                    android:hint="군/구"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
-                    android:text="@={viewModel.signUpCity}"
-                    android:gravity="end"
-                    android:hint="동"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    signUpName="@{viewModel.signUpName}"
-                    signUpEmail="@{viewModel.signUpEmail}"
-                    signUpNickName="@{viewModel.signUpNickName}"
-                    signUpPhone="@{viewModel.signUpPhone}"
-                    signUpPassword="@{viewModel.signUpPassword}"
-                    signUpZipCode="@{viewModel.signUpZipCode}"
-                    signUpStreet="@{viewModel.signUpStreet}"
-                    signUpCity="@{viewModel.signUpCity}"
-                    android:layout_weight="1"
-                    android:text="@string/sign_up_confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    signUpCancel="@{viewModel.userId}"
-                    android:layout_weight="1"
-                    android:text="@string/sign_up_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
