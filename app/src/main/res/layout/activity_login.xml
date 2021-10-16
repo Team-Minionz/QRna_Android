@@ -31,10 +31,6 @@
             android:background="@drawable/round_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -75,6 +71,7 @@
                     android:layout_height="wrap_content"/>
 
                 <Button
+                    android:textAllCaps="false"
                     android:layout_margin="10dp"
                     android:textColor="#FEFEFE"
                     android:background="@drawable/round_corner"
