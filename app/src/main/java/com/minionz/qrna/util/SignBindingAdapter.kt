@@ -4,13 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Paint
 import android.telephony.PhoneNumberFormattingTextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import com.minionz.qrna.data.*
+import com.minionz.qrna.data.AddressInfo
+import com.minionz.qrna.data.DefaultResponseData
+import com.minionz.qrna.data.LoginRequestData
+import com.minionz.qrna.data.SignUpRequestData
 import com.minionz.qrna.network.RetrofitBuilder
 import com.minionz.qrna.signUp.SignUpActivity
 import com.minionz.qrna.view.MainActivity

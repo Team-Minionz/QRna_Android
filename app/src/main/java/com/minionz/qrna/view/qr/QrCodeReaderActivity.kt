@@ -1,10 +1,9 @@
 package com.minionz.qrna.view.qr
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import com.minionz.qrna.R
 import com.minionz.qrna.data.DefaultResponseData
@@ -39,7 +38,7 @@ class QrCodeReaderActivity : AppCompatActivity() {
 
         if(result != null) {
             if(result.contents != null) {
-                val requestBody = QrCertificationRequestData("b@b.com","032-888-1111")
+                val requestBody = QrCertificationRequestData("a@a.com","032-888-1111")
 
                 RetrofitBuilder.networkService.certification(requestBody).enqueue(object : Callback<DefaultResponseData> {
                     override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
@@ -51,9 +50,6 @@ class QrCodeReaderActivity : AppCompatActivity() {
                         response: Response<DefaultResponseData>
                     ) {
                         val res = response.body()
-                        Log.e("???",response.code().toString())
-                        Log.e("???",response.raw().toString())
-                        Log.e("??",res.toString())
                         if(res?.message == "방문 기록 성공") {
                             Toast.makeText(
                                 this@QrCodeReaderActivity,
@@ -66,7 +62,6 @@ class QrCodeReaderActivity : AppCompatActivity() {
                         finish()
                     }
                 })
-                Log.e("data",result.contents)
 
             } else {
                 Toast.makeText(this,"저장된 데이터가 없습니다",Toast.LENGTH_SHORT).show()

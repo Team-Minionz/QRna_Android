@@ -3,47 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.minionz.qrna">
 
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android"/>
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:hardwareAccelerated="true"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".view.qr.QrCodeReaderActivity"
             android:screenOrientation="portrait"
-            tools:replace="screenOrientation"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden">
-
-        </activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:replace="screenOrientation" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation"/>
+            tools:replace="screenOrientation" />
         <activity
             android:name=".view.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main" />
 
+        <activity
+            android:name=".signUp.SignUpActivity">
         </activity>
-        <activity android:name=".signUp.SignUpActivity" />
 
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
