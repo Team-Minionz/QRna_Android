@@ -1,6 +1,5 @@
 package com.minionz.qrna.view.ui.dashboard
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.zxing.integration.android.IntentIntegrator
 import com.minionz.qrna.R
 import com.minionz.qrna.databinding.FragmentDashboardBinding
-import com.minionz.qrna.view.qr.QrCodeReaderActivity
 
 class DashboardFragment : Fragment() {
 
@@ -29,10 +27,18 @@ class DashboardFragment : Fragment() {
         dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         binding.viewModel = dashboardViewModel
 
-        binding.qrButton.setOnClickListener {
-            val intent = Intent(this.requireActivity(),QrCodeReaderActivity::class.java)
-            startActivity(intent)
-        }
+        initQrCodeScan()
+
         return binding.root
+    }
+
+    private fun initQrCodeScan() {
+
+        val integrator = IntentIntegrator(requireActivity())
+        integrator.setBeepEnabled(false)
+        integrator.setOrientationLocked(true)
+        integrator.setPrompt("QR코드를 인증해주세요")
+        integrator.initiateScan()
+
     }
 }
