@@ -12,10 +12,15 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.minionz.qrna.view.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_qr_certification"
+        android:name="com.minionz.qrna.view.ui.qrcertification.QrCertificationFragment"
+        android:label="@string/title_qr_certification"
+        tools:layout="@layout/fragment_qr_certification" >
+        <action
+            android:id="@+id/action_navigation_qr_certification_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_my_info"

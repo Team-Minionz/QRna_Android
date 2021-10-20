@@ -8,10 +8,11 @@
         <variable
             name="viewModel"
             type="com.minionz.qrna.view.ui.myinfo.MyInfoViewModel" />
-
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#CFF9F1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.ui.myinfo.MyInfoFragment">
@@ -19,82 +20,79 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/round_corner"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:src="@drawable/ic_launcher_foreground"
-                    android:layout_weight="2"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <LinearLayout
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:layout_marginStart="5dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:gravity="start"
+                    android:padding="5dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Button
+                    android:layout_margin="10dp"
                     logout="@{viewModel.userEmail}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@drawable/round_corner"
+                    android:backgroundTint="#E74C3C"
                     android:text="로그 아웃"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    withdraw="@{viewModel.userEmail}"
-                    android:text="회원 탈퇴"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="#FEFEFE" />
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="start"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="start"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            withdraw="@{viewModel.userEmail}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="#5E5E5E"
+            android:text="회원탈퇴"
+            android:textColor="#FEFEFE"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 </layout>
 

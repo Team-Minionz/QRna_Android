@@ -7,14 +7,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.minionz.qrna.view.ui.dashboard.DashboardViewModel" />
+            type="com.minionz.qrna.view.ui.qrcertification.QrCertificationViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.dashboard.DashboardFragment">
+        tools:context=".view.ui.qrcertification.QrCertificationFragment">
 
         <LinearLayout
             android:orientation="vertical"
@@ -24,13 +24,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/qrButton"
-                android:layout_gravity="center"
-                android:text="QR 인증"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
