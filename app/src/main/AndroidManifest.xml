@@ -19,12 +19,6 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".view.qr.QrCodeReaderActivity"
-            android:screenOrientation="portrait"
-            android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:replace="screenOrientation" />
-        <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />

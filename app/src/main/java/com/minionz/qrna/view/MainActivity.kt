@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             0 -> {
-//                Toast.makeText(this,"인증이 취소되었습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"인증이 취소되었습니다", Toast.LENGTH_SHORT).show()
                 navController.navigate(R.id.action_navigation_qr_certification_to_navigation_home)
             }
         }
