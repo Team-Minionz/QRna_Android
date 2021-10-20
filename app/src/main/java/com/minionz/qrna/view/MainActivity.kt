@@ -2,6 +2,7 @@ package com.minionz.qrna.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_my_info
+                R.id.navigation_home, R.id.navigation_qr_certification, R.id.navigation_my_info
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -40,45 +41,47 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         val result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data)
-            val errorMessage = Toast.makeText(this@MainActivity,"인증에 실패했습니다", Toast.LENGTH_SHORT)
+        val errorMessage = Toast.makeText(this@MainActivity,"인증에 실패했습니다", Toast.LENGTH_SHORT)
 
-        if(result != null) {
-            if(result.contents != null) {
-                val requestBody = QrCertificationRequestData("a@a.com","032-888-1111")
+        Log.e("request",requestCode.toString())
+        Log.e("result",resultCode.toString())
 
-                RetrofitBuilder.networkService.certification(requestBody).enqueue(object :
-                    Callback<DefaultResponseData> {
-                    override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
-                        errorMessage.show()
-                    }
+        when(resultCode) {
+            -1 -> {
+                result.contents?.let {
+                    val requestBody = QrCertificationRequestData("a@a.com","032-888-1111")
 
-                    override fun onResponse(
-                        call: Call<DefaultResponseData>,
-                        response: Response<DefaultResponseData>
-                    ) {
-                        val res = response.body()
-                        if(res?.message == "방문 기록 성공") {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "인증이 완료되었습니다",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            navController.navigate(R.id.action_navigation_dashboard_to_navigation_home)
+                    RetrofitBuilder.networkService.certification(requestBody).enqueue(object :
+                        Callback<DefaultResponseData> {
+                        override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
+                            errorMessage.show()
+                            navController.navigate(R.id.action_navigation_qr_certification_to_navigation_home)
                         }
-                        else errorMessage.show()
-                    }
-                })
 
-            } else {
-                Toast.makeText(this,"저장된 데이터가 없습니다", Toast.LENGTH_SHORT).show()
-                finish()
+                        override fun onResponse(
+                            call: Call<DefaultResponseData>,
+                            response: Response<DefaultResponseData>
+                        ) {
+                            val res = response.body()
+                            if(res?.message == "방문 기록 성공") {
+                                Toast.makeText(this@MainActivity, "인증이 완료되었습니다", Toast.LENGTH_SHORT).show()
+                                navController.navigate(R.id.action_navigation_qr_certification_to_navigation_home)
+                            }
+                            else {
+                                errorMessage.show()
+                                navController.navigate(R.id.action_navigation_qr_certification_to_navigation_home)
+                            }
+                        }
+                    })
+                }
             }
-        } else {
-            Toast.makeText(this,"인증이 취소되었습니다", Toast.LENGTH_SHORT).show()
-            finish()
+            0 -> {
+//                Toast.makeText(this,"인증이 취소되었습니다", Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.action_navigation_qr_certification_to_navigation_home)
+            }
         }
 
-        super.onActivityResult(requestCode, resultCode, data)
     }
 }

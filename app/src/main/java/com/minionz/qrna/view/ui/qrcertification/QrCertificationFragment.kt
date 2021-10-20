@@ -1,4 +1,4 @@
-package com.minionz.qrna.view.ui.dashboard
+package com.minionz.qrna.view.ui.qrcertification
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.zxing.integration.android.IntentIntegrator
 import com.minionz.qrna.R
-import com.minionz.qrna.databinding.FragmentDashboardBinding
+import com.minionz.qrna.databinding.FragmentQrCertificationBinding
 
-class DashboardFragment : Fragment() {
+class QrCertificationFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
-    private lateinit var binding : FragmentDashboardBinding
+    private lateinit var certificationViewModel: QrCertificationViewModel
+    private lateinit var binding : FragmentQrCertificationBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,10 +22,10 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dashboard,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_qr_certification,container,false)
         binding.lifecycleOwner = this
-        dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
-        binding.viewModel = dashboardViewModel
+        certificationViewModel = ViewModelProvider(this).get(QrCertificationViewModel::class.java)
+        binding.viewModel = certificationViewModel
 
         initQrCodeScan()
 

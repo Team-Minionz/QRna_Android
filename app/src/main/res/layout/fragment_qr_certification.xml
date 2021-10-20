@@ -7,14 +7,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.minionz.qrna.view.ui.dashboard.DashboardViewModel" />
+            type="com.minionz.qrna.view.ui.qrcertification.QrCertificationViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.dashboard.DashboardFragment">
+        tools:context=".view.ui.qrcertification.QrCertificationFragment">
 
         <LinearLayout
             android:orientation="vertical"
