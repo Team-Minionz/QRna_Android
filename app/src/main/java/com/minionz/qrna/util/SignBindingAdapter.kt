@@ -16,6 +16,7 @@ import com.minionz.qrna.data.SignUpRequestData
 import com.minionz.qrna.network.RetrofitBuilder
 import com.minionz.qrna.signUp.SignUpActivity
 import com.minionz.qrna.view.MainActivity
+import com.minionz.qrna.view.OwnerActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -118,8 +119,16 @@ object SignBindingAdapter {
                     when(response.code()) {
                         200 -> {
                             if(response.body()?.message == "로그인 성공") {
-                                val intent = Intent(button.context, MainActivity::class.java)
-                                button.context.startActivity(intent)
+                                when(userType.toString()) {
+                                    "USER" -> {
+                                        val intent = Intent(button.context, MainActivity::class.java)
+                                        button.context.startActivity(intent)
+                                    }
+                                    "OWNER" -> {
+                                        val intent = Intent(button.context, OwnerActivity::class.java)
+                                        button.context.startActivity(intent)
+                                    }
+                                }
                             }
                         }
 
