@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="user_type_array">
+        <item>회원 유형 선택</item>
+        <item>유저</item>
+        <item>점주</item>
+    </string-array>
+</resources>
