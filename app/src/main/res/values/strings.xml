@@ -14,5 +14,6 @@
     <string name="title_qr_certification">QR 인증</string>
     <string name="title_my_info">내 정보</string>
     <string name="sign_up_address">주소</string>
-    <string name="sign_in_button_text">SignIn</string>
+    <string name="user_login_button_text">UserLogin</string>
+    <string name="owner_login_button_text">OwnerLogin</string>
 </resources>
