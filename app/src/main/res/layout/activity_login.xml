@@ -8,7 +8,7 @@
         <variable
             name="viewModel"
             type="com.minionz.qrna.viewModel.MainViewModel" />
-        
+
     </data>
     
     <LinearLayout
@@ -38,6 +38,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="50dp"
+                android:padding="20dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -78,9 +79,27 @@
                     android:backgroundTint="#E74C3C"
                     loginId="@{viewModel.loginId}"
                     loginPw="@{viewModel.loginPassword}"
-                    android:text="@string/sign_in_button_text"
+                    userType="@{`USER`}"
+                    android:text="@string/user_login_button_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    loginId="@{viewModel.loginId}"
+                    loginPw="@{viewModel.loginPassword}"
+                    userType="@{`OWNER`}"
+                    android:textColor="#FEFEFE"
+                    android:background="@drawable/round_corner"
+                    android:backgroundTint="#E74C3C"
+                    android:text="@string/owner_login_button_text"/>
+
 
                 <TextView
                     android:layout_margin="10dp"

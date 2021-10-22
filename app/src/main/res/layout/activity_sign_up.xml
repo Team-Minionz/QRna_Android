@@ -35,6 +35,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:padding="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -42,6 +43,12 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:entries="@array/user_type_array"
+                    tools:setOnItemSelectedListener="@{viewModel.spinnerClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
 
                 <EditText
                     android:padding="10dp"
@@ -129,7 +136,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:text="@={viewModel.signUpZipCode}"
-                        android:gravity="end"
+                        android:gravity="start"
                         android:hint="시"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -144,8 +151,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:text="@={viewModel.signUpStreet}"
-                        android:gravity="end"
-                        android:hint="군/구"
+                        android:gravity="start"
+                        android:hint="구"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -159,7 +166,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:text="@={viewModel.signUpCity}"
-                        android:gravity="end"
+                        android:gravity="start"
                         android:hint="동"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -189,6 +196,7 @@
                         signUpZipCode="@{viewModel.signUpZipCode}"
                         signUpStreet="@{viewModel.signUpStreet}"
                         signUpCity="@{viewModel.signUpCity}"
+                        userType="@{viewModel.userType}"
                         android:layout_weight="1"
                         android:text="@string/sign_up_confirm"
                         android:layout_width="match_parent"

@@ -16,6 +16,7 @@ import com.minionz.qrna.data.SignUpRequestData
 import com.minionz.qrna.network.RetrofitBuilder
 import com.minionz.qrna.signUp.SignUpActivity
 import com.minionz.qrna.view.MainActivity
+import com.minionz.qrna.view.OwnerActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,12 +41,12 @@ object SignBindingAdapter {
     }
 
     @BindingAdapter(value = ["signUpName","signUpEmail","signUpNickName","signUpPhone","signUpPassword",
-                            "signUpZipCode","signUpStreet","signUpCity"],
+                            "signUpZipCode","signUpStreet","signUpCity","userType"],
     requireAll = true)
     @JvmStatic
     fun signUp(button: Button, signUpName : String?, signUpEmail : String?, signUpNickName : String?,
                signUpPhone : String?, signUpPassword : String?, signUpZipCode: String?, signUpStreet : String?,
-    signUpCity : String?) {
+    signUpCity : String?, userType : String?) {
         button.setOnClickListener {
 
             val errorMessage = Toast.makeText(button.context,"회원가입에 실패했습니다",Toast.LENGTH_SHORT)
@@ -59,11 +60,12 @@ object SignBindingAdapter {
                 signUpZipCode.isNullOrBlank() -> Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show()
                 signUpStreet.isNullOrBlank() -> Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show()
                 signUpCity.isNullOrBlank() -> Toast.makeText(button.context,"주소를 입력하세요",Toast.LENGTH_SHORT).show()
+                userType.isNullOrBlank() -> Toast.makeText(button.context,"회원 유형을 선택해주세요",Toast.LENGTH_SHORT).show()
 
                 else -> {
                     val address = AddressInfo(signUpZipCode.toString(),signUpStreet.toString(),signUpCity.toString())
                     val signUpRequestBody = SignUpRequestData(signUpName.toString(),signUpEmail.toString(),
-                        signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString(),address)
+                        signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString(),address,userType.toString())
 
 
                     RetrofitBuilder.networkService.signUp(signUpRequestBody).enqueue(object : Callback<DefaultResponseData> {
@@ -98,11 +100,11 @@ object SignBindingAdapter {
         button.setOnClickListener { (button.context as Activity).finish() }
     }
 
-    @BindingAdapter("loginId","loginPw")
+    @BindingAdapter("loginId","loginPw","userType")
     @JvmStatic
-    fun login(button: Button, loginId : String?, loginPassword : String?) {
+    fun login(button: Button, loginId : String?, loginPassword : String?, userType: String?) {
         button.setOnClickListener {
-            val loginRequestBody = LoginRequestData(loginId.toString(),loginPassword.toString())
+            val loginRequestBody = LoginRequestData(loginId.toString(),loginPassword.toString(),userType.toString())
 
             RetrofitBuilder.networkService.login(loginRequestBody).enqueue(object : Callback<DefaultResponseData>{
                 override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
@@ -117,8 +119,16 @@ object SignBindingAdapter {
                     when(response.code()) {
                         200 -> {
                             if(response.body()?.message == "로그인 성공") {
-                                val intent = Intent(button.context, MainActivity::class.java)
-                                button.context.startActivity(intent)
+                                when(userType.toString()) {
+                                    "USER" -> {
+                                        val intent = Intent(button.context, MainActivity::class.java)
+                                        button.context.startActivity(intent)
+                                    }
+                                    "OWNER" -> {
+                                        val intent = Intent(button.context, OwnerActivity::class.java)
+                                        button.context.startActivity(intent)
+                                    }
+                                }
                             }
                         }
 
