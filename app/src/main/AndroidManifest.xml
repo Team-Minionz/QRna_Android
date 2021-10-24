@@ -17,7 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.OwnerActivity"></activity>
+        <activity android:name=".view.owner.StoreAdditionActivity"></activity>
+        <activity android:name=".view.owner.OwnerActivity">
+
+        </activity>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
@@ -25,7 +28,7 @@
         <activity
             android:name=".view.MainActivity"
             android:label="@string/title_activity_main" />
-        <activity android:name=".signUp.SignUpActivity"></activity>
+        <activity android:name=".signUp.SignUpActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

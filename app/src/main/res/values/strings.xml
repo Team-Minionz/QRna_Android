@@ -16,4 +16,5 @@
     <string name="sign_up_address">주소</string>
     <string name="user_login_button_text">UserLogin</string>
     <string name="owner_login_button_text">OwnerLogin</string>
+    <string name="table_info">%1$d인 테이블 x %2$d개</string>
 </resources>
