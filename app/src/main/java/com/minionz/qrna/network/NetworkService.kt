@@ -14,20 +14,35 @@ interface NetworkService {
     @POST("/api/v1/users/login")
     fun login(
         @Body loginRequestBody : LoginRequestData
-    ) : Call<DefaultResponseData>
+    ) : Call<LoginResponseData>
 
-    @GET("/api/v1/users/logout/{email}")
+    @GET("/api/v1/users/logout/{id}/{role}")
     fun logout(
-        @Path ("email") email : String
+        @Path ("id") id : Int,
+        @Path ("role") userType: String
     ) : Call<DefaultResponseData>
 
-    @DELETE("/api/v1/users/withdraw/{email}")
+    @DELETE("/api/v1/users/withdraw/{id}/{role}")
     fun withdraw(
-        @Path ("email") email : String
+        @Path ("id") userId : Int,
+        @Path ("role") userType : String
     ) : Call<DefaultResponseData>
 
     @POST("/api/v1/visits")
     fun certification(
         @Body certificationRequestData : QrCertificationRequestData
     ) : Call<DefaultResponseData>
+
+    @POST("/api/v1/shops")
+    fun registerShop(
+        @Body registerRequestData: ShopRegisterRequestData
+    ) : Call<DefaultResponseData>
+
+    @DELETE("/api/v1/shops/{}")
+    fun deleteShop(
+        @Path ("shopId") shopId : Int
+    ) : Call<DefaultResponseData>
+
+    @GET("/api/v1/shops")
+    fun inquireShop() : Call<List<StoreListData>>
 }
