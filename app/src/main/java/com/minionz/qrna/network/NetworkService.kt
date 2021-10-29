@@ -18,13 +18,13 @@ interface NetworkService {
 
     @GET("/api/v1/users/logout/{id}/{role}")
     fun logout(
-        @Path ("id") id : Int,
+        @Path ("id") id : Long,
         @Path ("role") userType: String
     ) : Call<DefaultResponseData>
 
     @DELETE("/api/v1/users/withdraw/{id}/{role}")
     fun withdraw(
-        @Path ("id") userId : Int,
+        @Path ("id") userId : Long,
         @Path ("role") userType : String
     ) : Call<DefaultResponseData>
 
@@ -38,11 +38,17 @@ interface NetworkService {
         @Body registerRequestData: ShopRegisterRequestData
     ) : Call<DefaultResponseData>
 
-    @DELETE("/api/v1/shops/{}")
+    @DELETE("/api/v1/shops/{id}")
     fun deleteShop(
-        @Path ("shopId") shopId : Int
+        @Path ("shopId") shopId : Long
     ) : Call<DefaultResponseData>
 
     @GET("/api/v1/shops")
     fun inquireShop() : Call<List<StoreListData>>
+
+    @GET("/api/v1/users/page/{id}/{role}")
+    fun getMyInfo(
+        @Path("id") userId: Long,
+        @Path("role") userType: String
+    ) : Call<UserInfoData>
 }
