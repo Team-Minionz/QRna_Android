@@ -1,9 +1,10 @@
 package com.minionz.qrna.data
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponseData(
-    val userId : Int,
-    val message : ResponseMessage
-)
-data class ResponseMessage(
+    @SerializedName("id")
+    val id : Long,
+    @SerializedName("message")
     val message : String?
 )
