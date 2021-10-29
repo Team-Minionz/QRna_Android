@@ -4,19 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Paint
 import android.telephony.PhoneNumberFormattingTextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import com.minionz.qrna.data.AddressInfo
-import com.minionz.qrna.data.DefaultResponseData
-import com.minionz.qrna.data.LoginRequestData
-import com.minionz.qrna.data.SignUpRequestData
+import com.minionz.qrna.SingleTon
+import com.minionz.qrna.data.*
 import com.minionz.qrna.network.RetrofitBuilder
 import com.minionz.qrna.signUp.SignUpActivity
 import com.minionz.qrna.view.MainActivity
-import com.minionz.qrna.view.OwnerActivity
+import com.minionz.qrna.view.owner.OwnerActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,10 +66,12 @@ object SignBindingAdapter {
                     val signUpRequestBody = SignUpRequestData(signUpName.toString(),signUpEmail.toString(),
                         signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString(),address,userType.toString())
 
+                    Log.e("role",userType.toString())
 
                     RetrofitBuilder.networkService.signUp(signUpRequestBody).enqueue(object : Callback<DefaultResponseData> {
                         override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                             errorMessage.show()
+                            Log.e(",,,","통신실패")
                         }
 
                         override fun onResponse(
@@ -106,19 +107,22 @@ object SignBindingAdapter {
         button.setOnClickListener {
             val loginRequestBody = LoginRequestData(loginId.toString(),loginPassword.toString(),userType.toString())
 
-            RetrofitBuilder.networkService.login(loginRequestBody).enqueue(object : Callback<DefaultResponseData>{
-                override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
-                    Toast.makeText(button.context,"로그인에 실패했습니다",Toast.LENGTH_SHORT).show()
+            RetrofitBuilder.networkService.login(loginRequestBody).enqueue(object : Callback<LoginResponseData>{
+                override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
+                    Log.e("???",t.message)
+                    Toast.makeText(button.context,"서버와 통신에 실패했습니다",Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(
-                    call: Call<DefaultResponseData>,
-                    response: Response<DefaultResponseData>
+                    call: Call<LoginResponseData>,
+                    response: Response<LoginResponseData>
                 ) {
+                    Log.e("??",response.raw().message())
 
                     when(response.code()) {
                         200 -> {
                             if(response.body()?.message == "로그인 성공") {
+                                SingleTon.prefs.userId = response.body()!!.id
                                 when(userType.toString()) {
                                     "USER" -> {
                                         val intent = Intent(button.context, MainActivity::class.java)
@@ -140,13 +144,13 @@ object SignBindingAdapter {
         }
     }
 
-    @BindingAdapter("logout")
+    @BindingAdapter("logoutUserType")
     @JvmStatic
-    fun logout(button: Button, userEmail : String?) {
+    fun logout(button: Button, userType: String?) {
         button.setOnClickListener {
             val errorMessage = Toast.makeText(button.context,"로그아웃에 실패했습니다",Toast.LENGTH_SHORT)
 
-            RetrofitBuilder.networkService.logout("a@a.com").enqueue(object : Callback<DefaultResponseData> {
+            RetrofitBuilder.networkService.logout(SingleTon.prefs.userId,userType.toString()).enqueue(object : Callback<DefaultResponseData> {
                 override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                     errorMessage.show()
                 }
@@ -157,7 +161,10 @@ object SignBindingAdapter {
                 ) {
 
                     when(response.code()) {
-                        204 -> (button.context as Activity).finish()
+                        204 -> {
+                            (button.context as Activity).finish()
+                            Toast.makeText(button.context,"로그아웃 되었습니다",Toast.LENGTH_SHORT).show()
+                        }
                         else -> errorMessage.show()
                     }
                 }
@@ -165,12 +172,12 @@ object SignBindingAdapter {
         }
     }
 
-    @BindingAdapter("withdraw")
+    @BindingAdapter("userType")
     @JvmStatic
-    fun withDraw(button: Button, email : String?) {
+    fun withDraw(button: Button, userType : String?) {
         button.setOnClickListener {
             val errorMessage = Toast.makeText(button.context,"탈퇴에 실패했습니다",Toast.LENGTH_SHORT)
-            RetrofitBuilder.networkService.withdraw("a@a.com").enqueue(object : Callback<DefaultResponseData> {
+            RetrofitBuilder.networkService.withdraw(SingleTon.prefs.userId,userType.toString()).enqueue(object : Callback<DefaultResponseData> {
                 override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                     errorMessage.show()
                 }
