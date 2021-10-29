@@ -24,6 +24,7 @@ class OwnerActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(OwnerManageViewModel::class.java)
         binding.viewModel = viewModel
 
+        viewModel.storeList.clear()
         viewModel.inquireShop()
     }
 }

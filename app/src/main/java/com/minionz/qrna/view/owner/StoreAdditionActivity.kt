@@ -24,4 +24,5 @@ class StoreAdditionActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(OwnerManageViewModel::class.java)
         binding.viewModel = viewModel
     }
+
 }

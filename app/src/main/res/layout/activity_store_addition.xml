@@ -24,6 +24,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:text="@={viewModel.storeName}"
                 android:layout_margin="5dp"
                 android:padding="10dp"
                 android:background="@drawable/round_corner"
@@ -32,6 +33,7 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
+                android:text="@={viewModel.storeTelNum}"
                 android:layout_margin="5dp"
                 android:padding="10dp"
                 android:background="@drawable/round_corner"
@@ -46,6 +48,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:text="@={viewModel.storeZipCode}"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:padding="10dp"
@@ -55,6 +58,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:text="@={viewModel.storeStreet}"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
@@ -65,6 +69,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:text="@={viewModel.storeCity}"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:padding="10dp"
@@ -101,9 +106,10 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:text="@={viewModel.currentTableMaxUser}"
                 android:layout_marginEnd="5dp"
                 android:padding="10dp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:hint="테이블 인원 수"
                 android:background="@drawable/round_corner"
                 android:layout_weight="1"
@@ -122,6 +128,8 @@
                 android:layout_height="wrap_content"/>
 
             <Button
+                android:id="@+id/tableAddButton"
+                android:onClick="@{() -> viewModel.addTable(tableAddButton,viewModel.currentTableMaxUser)}"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginStart="5dp"
@@ -136,10 +144,17 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_margin="15dp"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="150dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                bindTable="@{viewModel.tableInfo}"
+                android:layout_margin="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </ScrollView>
 
         <TextView
             android:textStyle="bold"
@@ -157,6 +172,12 @@
             android:layout_height="wrap_content">
 
             <Button
+                shopName="@{viewModel.storeName}"
+                storeTelNum="@{viewModel.storeTelNum}"
+                zipCode="@{viewModel.storeZipCode}"
+                street="@{viewModel.storeStreet}"
+                city="@{viewModel.storeCity}"
+                tableList="@{viewModel.tableInfo}"
                 android:layout_marginEnd="5dp"
                 android:text="추가"
                 android:textStyle="bold"

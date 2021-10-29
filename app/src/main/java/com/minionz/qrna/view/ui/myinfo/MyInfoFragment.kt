@@ -28,6 +28,8 @@ class MyInfoFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = myInfoViewModel
 
+        myInfoViewModel.getMyInfo()
+
         return binding.root
     }
 }
