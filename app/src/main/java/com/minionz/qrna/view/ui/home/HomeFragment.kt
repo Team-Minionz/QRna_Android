@@ -26,6 +26,8 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = homeViewModel
 
+        homeViewModel.inquireShop()
+
         return binding.root
     }
 }

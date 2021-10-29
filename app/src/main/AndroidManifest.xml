@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".SingleTon"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,15 +18,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.OwnerActivity"></activity>
+        <activity android:name=".view.owner.StoreAdditionActivity"></activity>
+        <activity android:name=".view.owner.OwnerActivity">
+
+        </activity>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
             android:name=".view.MainActivity"
-            android:label="@string/title_activity_main" />
-        <activity android:name=".signUp.SignUpActivity"></activity>
+            android:label="@string/title_activity_main">
+
+
+        </activity>
+        <activity android:name=".signUp.SignUpActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

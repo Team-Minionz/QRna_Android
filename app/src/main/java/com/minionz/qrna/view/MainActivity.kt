@@ -2,7 +2,6 @@ package com.minionz.qrna.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -13,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 import com.minionz.qrna.R
+import com.minionz.qrna.SingleTon
 import com.minionz.qrna.data.DefaultResponseData
 import com.minionz.qrna.data.QrCertificationRequestData
 import com.minionz.qrna.network.RetrofitBuilder
@@ -45,13 +45,10 @@ class MainActivity : AppCompatActivity() {
         val result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data)
         val errorMessage = Toast.makeText(this@MainActivity,"인증에 실패했습니다", Toast.LENGTH_SHORT)
 
-        Log.e("request",requestCode.toString())
-        Log.e("result",resultCode.toString())
-
         when(resultCode) {
             -1 -> {
                 result.contents?.let {
-                    val requestBody = QrCertificationRequestData("a@a.com","032-888-1111")
+                    val requestBody = QrCertificationRequestData(SingleTon.prefs.userId,1)
 
                     RetrofitBuilder.networkService.certification(requestBody).enqueue(object :
                         Callback<DefaultResponseData> {
