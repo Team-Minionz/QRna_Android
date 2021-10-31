@@ -51,4 +51,9 @@ interface NetworkService {
         @Path("id") userId: Long,
         @Path("role") userType: String
     ) : Call<UserInfoData>
+
+    @POST("/api/v1/users/bookmark")
+    fun addBookMark(
+        @Body bookMarkRequestData: AddBookMarkRequestData
+    ) : Call<DefaultResponseData>
 }
