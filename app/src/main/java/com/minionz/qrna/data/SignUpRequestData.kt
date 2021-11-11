@@ -7,10 +7,11 @@ data class SignUpRequestData(
     val telNumber : String,
     val password : String,
     val address : AddressInfo,
-    val role : String
 )
 data class AddressInfo(
     val zipcode : String,
     val street : String,
-    val city : String
+    val city : String,
+    val latitude : Double?,
+    val longitude : Double?
 )
