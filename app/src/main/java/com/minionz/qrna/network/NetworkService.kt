@@ -7,25 +7,43 @@ import retrofit2.http.*
 interface NetworkService {
 
     @POST("/api/v1/users/join")
-    fun signUp(
+    fun userSignUp(
+        @Body signUpRequestBody : SignUpRequestData
+    ) : Call<DefaultResponseData>
+
+    @POST("/api/v1/owners/join")
+    fun ownerSignUp(
         @Body signUpRequestBody : SignUpRequestData
     ) : Call<DefaultResponseData>
 
     @POST("/api/v1/users/login")
-    fun login(
+    fun userLogin(
         @Body loginRequestBody : LoginRequestData
     ) : Call<LoginResponseData>
 
-    @GET("/api/v1/users/logout/{id}/{role}")
-    fun logout(
-        @Path ("id") id : Long,
-        @Path ("role") userType: String
+    @POST("/api/v1/owners/login")
+    fun ownerLogin(
+        @Body loginRequestBody : LoginRequestData
+    ) : Call<LoginResponseData>
+
+    @GET("/api/v1/users/logout/{userId}")
+    fun userLogout(
+        @Path ("userId") id : Long
     ) : Call<DefaultResponseData>
 
-    @DELETE("/api/v1/users/withdraw/{id}/{role}")
-    fun withdraw(
-        @Path ("id") userId : Long,
-        @Path ("role") userType : String
+    @GET("/api/v1/owners/logout/{ownerId}")
+    fun ownerLogout(
+        @Path ("userId") id : Long
+    )
+
+    @DELETE("/api/v1/users/withdraw/{userId}")
+    fun userWithdraw(
+        @Path ("userId") userId : Long
+    ) : Call<DefaultResponseData>
+
+    @DELETE("/api/v1/owners/withdraw/{ownerId}")
+    fun ownerWithdraw(
+        @Path ("userId") userId : Long
     ) : Call<DefaultResponseData>
 
     @POST("/api/v1/visits")
@@ -46,11 +64,15 @@ interface NetworkService {
     @GET("/api/v1/shops")
     fun inquireShop() : Call<List<StoreListData>>
 
-    @GET("/api/v1/users/page/{id}/{role}")
-    fun getMyInfo(
-        @Path("id") userId: Long,
-        @Path("role") userType: String
+    @GET("/api/v1/users/page/{userId}")
+    fun getUserInfo(
+        @Path("userId") userId: Long
     ) : Call<UserInfoData>
+
+    @GET("/api/v1/owners/page/{ownerId}")
+    fun getOwnerInfo(
+        @Path("userId") userId: Long
+    ) : Call<OwnerInfoData>
 
     @POST("/api/v1/users/bookmark")
     fun addBookMark(
@@ -61,5 +83,37 @@ interface NetworkService {
     fun deleteBookMark(
         @Path ("userId") userId : Long,
         @Path ("shopId") shopId : Long
+    ) : Call<DefaultResponseData>
+
+    @GET("/api/v1/shops/{shopId}")
+    fun inquireTableList(
+        @Path ("shopId") shopId: Long
+    ) : Call<List<ShopTableData>>
+
+    @GET("/api/v1/shops/search")
+    fun searchShop(
+        @Query ("keyword") keyword : String
+    ) : Call<List<ShopInfoData>>
+
+    @GET("/api/v1/shops/search/")
+    fun regionSearchShop(
+        @Query ("region") region : String,
+        @Query ("keyword") keyword : String
+    ) : Call<List<ShopInfoData>>
+
+    @GET("/api/v1/shops/detail/{shopId}/{userId}")
+    fun inquireDetailInfo(
+        @Path ("shopId") shopId: Long,
+        @Path ("userId") userId: Long
+    ) : Call<ShopDetailInfo>
+
+    @GET("/api/v1/owners/{ownerId}")
+    fun inquireMyShop(
+        @Path ("ownerId") ownerId : Long
+    ) : Call<List<MyShopInfoData>>
+
+    @GET("/api/v1/tables/tableId")
+    fun tableExit(
+        @Path ("tableId") tableId : Int
     ) : Call<DefaultResponseData>
 }
