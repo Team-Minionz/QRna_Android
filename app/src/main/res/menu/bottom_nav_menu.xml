@@ -7,6 +7,16 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/navigation_bookmark"
+        android:icon="@drawable/ic_people_24"
+        android:title="즐겨찾기"/>
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_people_24"
+        android:title="검색"/>
+
+    <item
         android:id="@+id/navigation_qr_certification"
         android:icon="@drawable/ic_qr_code_scanner_24"
         android:title="@string/title_qr_certification" />
@@ -15,5 +25,7 @@
         android:id="@+id/navigation_my_info"
         android:icon="@drawable/ic_person_outline_24"
         android:title="@string/title_my_info" />
+
+
 
 </menu>
