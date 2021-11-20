@@ -25,6 +25,9 @@ class BookMarkFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(BookMarkViewModel::class.java)
         binding.viewModel = viewModel
 
+        viewModel.bookMarkList.clear()
+        viewModel.inquireBookMark()
+
         return binding.root
     }
 
