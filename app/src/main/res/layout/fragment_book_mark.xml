@@ -10,9 +10,16 @@
     </data>
 
     <LinearLayout
+        android:background="#CBF9F1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.ui.bookmark.BookMarkFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            bookmark_list="@{viewModel.bookMarkList}"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
