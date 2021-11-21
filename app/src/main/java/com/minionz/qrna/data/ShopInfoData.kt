@@ -6,5 +6,7 @@ data class ShopInfoData(
     val address : ShopAddress,
     val congestionStatus : String,
     val numberOfTables : Int,
-    val useTables : Int
+    val useTables : Int,
+    val latitude : Double,
+    val longitude : Double
 )

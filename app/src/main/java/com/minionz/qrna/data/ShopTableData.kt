@@ -5,5 +5,5 @@ data class ShopTableData(
     val tableNumber : Long,
     val maxUser : Int,
     val countUser: Int,
-    val useStatus : String
+    var useStatus : String
 )
