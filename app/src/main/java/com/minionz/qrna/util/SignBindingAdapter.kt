@@ -62,32 +62,71 @@ object SignBindingAdapter {
                 userType.isNullOrBlank() -> Toast.makeText(button.context,"회원 유형을 선택해주세요",Toast.LENGTH_SHORT).show()
 
                 else -> {
-                    val address = AddressInfo(signUpZipCode.toString(),signUpStreet.toString(),signUpCity.toString())
+                    val address = AddressInfo(signUpZipCode.toString(),signUpStreet.toString(),signUpCity.toString(),127.0,37.0)
                     val signUpRequestBody = SignUpRequestData(signUpName.toString(),signUpEmail.toString(),
-                        signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString(),address,userType.toString())
+                        signUpNickName.toString(),signUpPhone.toString(),signUpPassword.toString(),address)
 
-                    Log.e("role",userType.toString())
+                    when(userType.toString()) {
+                        "USER" -> {
+                            RetrofitBuilder.networkService.userSignUp(signUpRequestBody)
+                                .enqueue(object : Callback<DefaultResponseData> {
+                                    override fun onFailure(
+                                        call: Call<DefaultResponseData>,
+                                        t: Throwable
+                                    ) {
+                                        errorMessage.show()
+                                        Log.e(",,,", "통신실패")
+                                    }
 
-                    RetrofitBuilder.networkService.signUp(signUpRequestBody).enqueue(object : Callback<DefaultResponseData> {
-                        override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
-                            errorMessage.show()
-                            Log.e(",,,","통신실패")
+                                    override fun onResponse(
+                                        call: Call<DefaultResponseData>,
+                                        response: Response<DefaultResponseData>
+                                    ) {
+                                        when (response.code()) {
+                                            201 -> {
+                                                Toast.makeText(
+                                                    button.context,
+                                                    "회원가입에 성공했습니다",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                (button.context as Activity).finish()
+                                            }
+                                            400 -> Toast.makeText(
+                                                button.context,
+                                                "중복된 이메일입니다",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            else -> errorMessage.show()
+                                        }
+                                    }
+                                })
                         }
-
-                        override fun onResponse(
-                            call: Call<DefaultResponseData>,
-                            response: Response<DefaultResponseData>
-                        ) {
-                            when(response.code()) {
-                                201 -> {
-                                    Toast.makeText(button.context,"회원가입에 성공했습니다",Toast.LENGTH_SHORT).show()
-                                    (button.context as Activity).finish()
+                        "OWNER" -> {
+                            RetrofitBuilder.networkService.ownerSignUp(signUpRequestBody).enqueue(object : Callback<DefaultResponseData> {
+                                override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
+                                    errorMessage.show()
+                                    Log.e(",,,","통신실패")
                                 }
-                                400 -> Toast.makeText(button.context,"중복된 이메일입니다",Toast.LENGTH_SHORT).show()
-                                else -> errorMessage.show()
-                            }
+
+                                override fun onResponse(
+                                    call: Call<DefaultResponseData>,
+                                    response: Response<DefaultResponseData>
+                                ) {
+                                    when(response.code()) {
+                                        201 -> {
+                                            Toast.makeText(button.context,"회원가입에 성공했습니다",Toast.LENGTH_SHORT).show()
+                                            (button.context as Activity).finish()
+                                        }
+                                        400 -> Toast.makeText(button.context,"중복된 이메일입니다",Toast.LENGTH_SHORT).show()
+                                        else -> errorMessage.show()
+                                    }
+                                }
+                            })
                         }
-                    })
+
+                    }
+
+
                 }
 
             }
@@ -105,42 +144,69 @@ object SignBindingAdapter {
     @JvmStatic
     fun login(button: Button, loginId : String?, loginPassword : String?, userType: String?) {
         button.setOnClickListener {
-            val loginRequestBody = LoginRequestData(loginId.toString(),loginPassword.toString(),userType.toString())
+            val loginRequestBody = LoginRequestData(loginId.toString(),loginPassword.toString())
 
-            RetrofitBuilder.networkService.login(loginRequestBody).enqueue(object : Callback<LoginResponseData>{
-                override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
-                    Log.e("???",t.message)
-                    Toast.makeText(button.context,"서버와 통신에 실패했습니다",Toast.LENGTH_SHORT).show()
-                }
+            when(userType) {
+                "OWNER" -> {
+                    RetrofitBuilder.networkService.ownerLogin(loginRequestBody).enqueue(object : Callback<LoginResponseData>{
+                        override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
+                            Toast.makeText(button.context,"서버와 통신에 실패했습니다",Toast.LENGTH_SHORT).show()
+                        }
 
-                override fun onResponse(
-                    call: Call<LoginResponseData>,
-                    response: Response<LoginResponseData>
-                ) {
-                    Log.e("??",response.raw().message())
+                        override fun onResponse(
+                            call: Call<LoginResponseData>,
+                            response: Response<LoginResponseData>
+                        ) {
+                            Log.e("??",response.raw().message())
 
-                    when(response.code()) {
-                        200 -> {
-                            if(response.body()?.message == "로그인 성공") {
-                                SingleTon.prefs.userId = response.body()!!.id
-                                when(userType.toString()) {
-                                    "USER" -> {
-                                        val intent = Intent(button.context, MainActivity::class.java)
-                                        button.context.startActivity(intent)
-                                    }
-                                    "OWNER" -> {
+                            when(response.code()) {
+                                200 -> {
+                                    if(response.body()?.message == "로그인 성공") {
+                                        SingleTon.prefs.userId = response.body()!!.id
                                         val intent = Intent(button.context, OwnerActivity::class.java)
                                         button.context.startActivity(intent)
                                     }
                                 }
+
+                                400 -> Toast.makeText(button.context,"비밀번호가 일치하지 않습니다",Toast.LENGTH_SHORT).show()
+                                404 -> Toast.makeText(button.context,"존재하지 않는 이메일입니다",Toast.LENGTH_SHORT).show()
                             }
                         }
-
-                        400 -> Toast.makeText(button.context,"비밀번호가 일치하지 않습니다",Toast.LENGTH_SHORT).show()
-                        404 -> Toast.makeText(button.context,"존재하지 않는 이메일입니다",Toast.LENGTH_SHORT).show()
-                    }
+                    })
                 }
-            })
+
+                "USER" -> {
+                    RetrofitBuilder.networkService.userLogin(loginRequestBody).enqueue(object : Callback<LoginResponseData>{
+                        override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
+                            Toast.makeText(button.context,"서버와 통신에 실패했습니다",Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onResponse(
+                            call: Call<LoginResponseData>,
+                            response: Response<LoginResponseData>
+                        ) {
+                            Log.e("??",response.raw().message())
+
+                            when(response.code()) {
+                                200 -> {
+                                    if(response.body()?.message == "로그인 성공") {
+                                        SingleTon.prefs.userId = response.body()!!.id
+                                        val intent = Intent(button.context, MainActivity::class.java)
+                                        button.context.startActivity(intent)
+                                    }
+                                }
+
+                                400 -> Toast.makeText(button.context,"비밀번호가 일치하지 않습니다",Toast.LENGTH_SHORT).show()
+                                404 -> Toast.makeText(button.context,"존재하지 않는 이메일입니다",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+
+                }
+
+            }
+
+
         }
     }
 
@@ -150,7 +216,7 @@ object SignBindingAdapter {
         button.setOnClickListener {
             val errorMessage = Toast.makeText(button.context,"로그아웃에 실패했습니다",Toast.LENGTH_SHORT)
 
-            RetrofitBuilder.networkService.logout(SingleTon.prefs.userId,userType.toString()).enqueue(object : Callback<DefaultResponseData> {
+            RetrofitBuilder.networkService.userLogout(SingleTon.prefs.userId).enqueue(object : Callback<DefaultResponseData> {
                 override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                     errorMessage.show()
                 }
@@ -177,7 +243,7 @@ object SignBindingAdapter {
     fun withDraw(button: Button, userType : String?) {
         button.setOnClickListener {
             val errorMessage = Toast.makeText(button.context,"탈퇴에 실패했습니다",Toast.LENGTH_SHORT)
-            RetrofitBuilder.networkService.withdraw(SingleTon.prefs.userId,userType.toString()).enqueue(object : Callback<DefaultResponseData> {
+            RetrofitBuilder.networkService.userWithdraw(SingleTon.prefs.userId).enqueue(object : Callback<DefaultResponseData> {
                 override fun onFailure(call: Call<DefaultResponseData>, t: Throwable) {
                     errorMessage.show()
                 }

@@ -20,7 +20,7 @@ object OwnerBindingAdapter {
 
     @BindingAdapter("bindItem")
     @JvmStatic
-    fun bindItem(recyclerView: RecyclerView, items: ObservableArrayList<StoreListData>) {
+    fun bindItem(recyclerView: RecyclerView, items: ObservableArrayList<MyShopInfoData>) {
         if(recyclerView.adapter == null) {
             val lm = LinearLayoutManager(recyclerView.context)
             val adapter = OwnerStoreListRecyclerAdapter()
@@ -58,7 +58,7 @@ object OwnerBindingAdapter {
     fun storeRegister(button: Button, name : String?, storeTelNum : String?,zipCode : String? ,
                       street : String?, city : String?,tableList : ObservableArrayList<TableInfoData>) {
         button.setOnClickListener {
-            val addressInfo = AddressInfo(zipCode.toString(),street.toString(),city.toString())
+            val addressInfo = AddressInfo("111-222",city.toString(),"$zipCode $street",127.0,37.0)
             val shopBody = ShopRegisterRequestData(SingleTon.prefs.userId,name.toString(),
             addressInfo,storeTelNum.toString(),tableList)
 
@@ -80,5 +80,18 @@ object OwnerBindingAdapter {
 
 
         }
+    }
+
+    @BindingAdapter("setTableList")
+    @JvmStatic
+    fun setTable(recyclerView: RecyclerView, items : ObservableArrayList<ShopTableData>) {
+        if(recyclerView.adapter == null) {
+            val lm = LinearLayoutManager(recyclerView.context)
+            val adapter = TableManageRecyclerAdapter()
+            recyclerView.layoutManager = lm
+            recyclerView.adapter = adapter
+        }
+        (recyclerView.adapter as TableManageRecyclerAdapter).items = items
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }

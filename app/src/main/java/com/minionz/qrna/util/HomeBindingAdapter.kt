@@ -5,6 +5,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.minionz.qrna.data.ShopInfoData
+import com.minionz.qrna.data.ShopTableData
 import com.minionz.qrna.data.StoreListData
 import com.minionz.qrna.data.VisitShopInfo
 
@@ -33,6 +34,19 @@ object HomeBindingAdapter {
             recyclerView.adapter = adapter
         }
         (recyclerView.adapter as VisitInfoRecyclerAdapter).items = items
+        recyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    @BindingAdapter("tableInfoList")
+    @JvmStatic
+    fun setTableItem(recyclerView: RecyclerView, items: ObservableArrayList<ShopTableData>) {
+        if(recyclerView.adapter == null) {
+            val lm = LinearLayoutManager(recyclerView.context)
+            val adapter = CurrentTableInfoRecyclerAdapter()
+            recyclerView.layoutManager = lm
+            recyclerView.adapter = adapter
+        }
+        (recyclerView.adapter as CurrentTableInfoRecyclerAdapter).items = items
         recyclerView.adapter?.notifyDataSetChanged()
     }
 }
