@@ -1,10 +1,12 @@
 package com.minionz.qrna.util
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.minionz.qrna.data.ShopInfoData
 import com.minionz.qrna.databinding.BookMarkItemListLayoutBinding
+import com.minionz.qrna.view.ui.ShopDetailInfoActivity
 
 class SearchShopListRecyclerAdapter : RecyclerView.Adapter<SearchShopListRecyclerAdapter.ViewHolder>() {
 
@@ -27,6 +29,13 @@ class SearchShopListRecyclerAdapter : RecyclerView.Adapter<SearchShopListRecycle
     inner class ViewHolder(private val binding : BookMarkItemListLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item : ShopInfoData) {
             binding.item = item
+
+            binding.root.setOnClickListener {
+                val intent = Intent(it.context,ShopDetailInfoActivity::class.java)
+                intent.putExtra("shopId",item.id)
+                it.context.startActivity(intent)
+            }
+
         }
     }
 }
