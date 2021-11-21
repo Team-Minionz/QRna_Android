@@ -17,4 +17,8 @@
     <string name="user_login_button_text">UserLogin</string>
     <string name="owner_login_button_text">OwnerLogin</string>
     <string name="table_info">%1$d인 테이블 x %2$d개</string>
+
+    <string name="use_user">총 %1$d / %2$d 명</string>
+    <string name="current_use">%1$d / %2$d 명 사용중</string>
+    <string name="table_number">%1$d번 테이블</string>
 </resources>
