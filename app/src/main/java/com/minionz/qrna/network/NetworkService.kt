@@ -56,7 +56,7 @@ interface NetworkService {
         @Body registerRequestData: ShopRegisterRequestData
     ) : Call<DefaultResponseData>
 
-    @DELETE("/api/v1/shops/{id}")
+    @DELETE("/api/v1/shops/{shopId}")
     fun deleteShop(
         @Path ("shopId") shopId : Long
     ) : Call<DefaultResponseData>
@@ -95,7 +95,7 @@ interface NetworkService {
         @Query ("keyword") keyword : String
     ) : Call<List<ShopInfoData>>
 
-    @GET("/api/v1/shops/search/")
+    @GET("/api/v1/shops/search/region")
     fun regionSearchShop(
         @Query ("region") region : String,
         @Query ("keyword") keyword : String
@@ -107,6 +107,13 @@ interface NetworkService {
         @Path ("userId") userId: Long
     ) : Call<ShopDetailInfo>
 
+    @GET("/api/v1/shops/near")
+    fun nearShopInquire(
+        @Query ("sort") sort: String,
+        @Query ("latitude") latitude : Double,
+        @Query ("longitude") longitude : Double
+    ) : Call<List<ShopInfoData>>
+
     @GET("/api/v1/owners/{ownerId}")
     fun inquireMyShop(
         @Path ("ownerId") ownerId : Long
@@ -114,6 +121,11 @@ interface NetworkService {
 
     @GET("/api/v1/tables/tableId")
     fun tableExit(
-        @Path ("tableId") tableId : Int
+        @Path ("tableId") tableId : Long
     ) : Call<DefaultResponseData>
+
+    @GET("/api/v1/users/bookmark/{userId}")
+    fun inquireBookMark(
+        @Path ("userId") userId : Long
+    ) : Call<List<ShopInfoData>>
 }
