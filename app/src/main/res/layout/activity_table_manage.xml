@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.minionz.qrna.view.owner.OwnerManageViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.owner.TableManageActivity">
+
+        <TextView
+            android:layout_margin="10dp"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="@{viewModel.currentStoreName}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            setTableList="@{viewModel.myShopTableList}"
+            android:layout_margin="10dp"
+            android:background="@drawable/round_corner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:backgroundTint="#FF5656"
+            android:background="@drawable/round_corner"
+            android:textColor="#FFFFFF"
+            android:text="닫기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>
