@@ -50,6 +50,17 @@ QR 인증을 통해 매장 방문기록을 남기는 것은 현재 매장을 사
 1. 전일/금일 확진자 수 정보 제공
 2. 사용자 위치의 거리두기 단계 정보 제공
 
+## 기술 스택
+
+- `Kotlin-1.4.21`
+- `MVVM Pattern` 
+- `Retrofit2-2.9.0`
+- `zxing-4.1.0`
+- `RecyclerView`
+- `Navigation`
+- `ViewModel`
+- `Livedata`
+
 ## ‼️ Problem
 
 - ~~매장별 입장시간을 기준으로 퇴장을 몇 분으로 잡을 것인가?~~
